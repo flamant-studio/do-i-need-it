@@ -52,9 +52,9 @@ const QUESTION_BANK = [
   },
   {
     id: "borrow",
-    text: "Could you borrow or rent this instead of buying it?",
-    subtext: "If you only need it once, you already know the answer.",
-    yes: { next: "thought", weight: 2 }, no: { next: "thought", weight: 0 },
+    text: "Do you specifically need to own this, rather than borrow or rent it?",
+    subtext: "If borrowing would do the job, that's probably the answer.",
+    yes: { next: "thought", weight: 0 }, no: { next: "thought", weight: 2 },
   },
   {
     id: "gift",
@@ -194,20 +194,21 @@ const getQuote = () => QUOTES[Math.floor(Math.random() * QUOTES.length)];
 
 // ─── Micro-quests (no objects required — body & mind only) ─────────────────
 const MICRO_QUESTS = [
-  { icon: "🌿", title: "Find something green", body: "Go to a window or step outside. Find the most interesting shade of green you can see. Stay with it for a minute.", duration: 60 },
-  { icon: "📱", title: "Text someone you miss", body: "Think of someone you haven't spoken to in a while. Send them one sentence. No context required.", duration: 60 },
-  { icon: "☁️", title: "Look at the sky", body: "Actually look at it. Not a photo. The actual sky above you, right now.", duration: 60 },
-  { icon: "🫁", title: "Five deep breaths", body: "Slow ones. In through the nose, out through the mouth. Count them. The wanting will still be there after, but smaller.", duration: 60 },
-  { icon: "🚶", title: "Walk around the block", body: "Once. No destination. No podcast. Just movement and whatever you notice.", duration: 60 },
-  { icon: "🧠", title: "Name five things you're grateful for", body: "Specific ones. Not 'my health' — something that actually happened this week.", duration: 60 },
-  { icon: "🌅", title: "Watch the light change", body: "Find the most interesting patch of light in your room. Give it a full minute of genuine attention.", duration: 60 },
-  { icon: "🐦", title: "Listen for a bird", body: "Close your eyes. Just listen. If there are no birds, listen for whatever is furthest away.", duration: 60 },
-  { icon: "🤲", title: "Do something kind right now", body: "It can be tiny. Say thank you like you mean it. Compliment a stranger. Hold a door. Small is fine.", duration: 60 },
-  { icon: "👀", title: "Look at your hands", body: "Just look at them for a moment. They've been with you your whole life. Strange and familiar at once.", duration: 60 },
-  { icon: "🧘", title: "Sit still for a minute", body: "No phone. No music. No task. Just sit. You'll want to reach for something. Notice that.", duration: 60 },
-  { icon: "🌬️", title: "Step outside and feel the air", body: "Just stand there. Notice the temperature on your skin. The smell. What's moving.", duration: 60 },
-  { icon: "💬", title: "Say something out loud", body: "Whatever's on your mind. To nobody. Just say it into the room and hear how it sounds.", duration: 60 },
-  { icon: "🌍", title: "Think about somewhere far away", body: "Pick a place you've never been. Imagine the light there right now. The sounds. Different lives happening.", duration: 60 },
+  { icon: "🌿", title: "Find something green", body: "Go to a window or step outside. Find the most interesting shade of green you can see. Stay with it for 30 seconds.", duration: 30 },
+  { icon: "📱", title: "Text someone you miss", body: "Think of someone you haven't spoken to in a while. Send them one sentence. No context required.", duration: 30 },
+  { icon: "☁️", title: "Look at the sky", body: "Actually look at it. Not a photo. The actual sky above you, right now.", duration: 30 },
+  { icon: "🫁", title: "Five deep breaths", body: "Slow ones. In through the nose, out through the mouth. Count them. The wanting will still be there after, but smaller.", duration: 30 },
+  { icon: "🧠", title: "Name five things you're grateful for", body: "Specific ones. Not 'my health' — something that actually happened this week.", duration: 30 },
+  { icon: "🌅", title: "Watch the light change", body: "Find the most interesting patch of light in your room. Give it 30 seconds of genuine attention.", duration: 30 },
+  { icon: "👀", title: "Look at your hands", body: "Just look at them for a moment. They've been with you your whole life. Strange and familiar at once.", duration: 30 },
+  { icon: "🧘", title: "Sit still for 30 seconds", body: "No phone. No music. No task. Just sit. You'll want to reach for something. Notice that.", duration: 30 },
+  { icon: "🌬️", title: "Feel the air", body: "Step outside or open a window. Notice the temperature on your skin. The smell. Whether anything is moving.", duration: 30 },
+  { icon: "💬", title: "Say something out loud", body: "Whatever's on your mind. To nobody. Just say it into the room and hear how it sounds.", duration: 30 },
+  { icon: "🌍", title: "Think about somewhere far away", body: "Pick a place you've never been. Imagine the light there right now. The sounds. Different lives happening.", duration: 30 },
+  { icon: "👁️", title: "Close your eyes", body: "Open them again when you think 30 seconds have passed. No counting. Just feel it.", duration: 30 },
+  { icon: "🙆", title: "Stand up and stretch", body: "Raise your arms all the way above your head. Hold it. Stretch as much as you can. Your body has been waiting for this.", duration: 30 },
+  { icon: "🛍️", title: "Picture the best thing you ever bought", body: "Not the most expensive. The one that actually earned its place. What made it great?", duration: 30 },
+  { icon: "👂", title: "Listen for a sound", body: "Any sound. Close your eyes and find the furthest one you can hear. Then find one closer. Then closer still.", duration: 30 },
 ];
 
 const getQuest = () => MICRO_QUESTS[Math.floor(Math.random() * MICRO_QUESTS.length)];
@@ -489,36 +490,36 @@ export default function App() {
         .fade.out { opacity: 0; transform: translateY(8px); }
 
         .btn-yn {
-          flex: 1; background: transparent; border: 2px solid #2e2e1e;
-          color: #999980; font-family: 'IBM Plex Mono', monospace;
+          flex: 1; background: transparent; border: 2px solid #666650;
+          color: #d8d8c0; font-family: 'IBM Plex Mono', monospace;
           font-size: 13px; padding: 18px 0; cursor: pointer;
           letter-spacing: 3px; text-transform: uppercase; transition: all 0.15s ease;
         }
         .btn-yn.yes:hover { border-color: #FFD600; color: #FFD600; background: rgba(255,214,0,0.06); }
-        .btn-yn.no:hover { border-color: #ccc; color: #ccc; background: rgba(255,255,255,0.04); }
+        .btn-yn.no:hover { border-color: #eeeedd; color: #eeeedd; background: rgba(255,255,255,0.04); }
         @media (hover: none) {
-          .btn-yn.yes:hover, .btn-yn.no:hover { border-color: #2e2e1e; color: #999980; background: transparent; }
-          .btn-ghost:hover { border-color: #3a3a28; color: #888870; }
+          .btn-yn.yes:hover, .btn-yn.no:hover { border-color: #666650; color: #d8d8c0; background: transparent; }
+          .btn-ghost:hover { border-color: #aaa890; color: #eeeedd; }
           .btn-primary:hover { transform: none; box-shadow: 4px 4px 0px #b89e00; }
         }
 
         .btn-primary {
           background: #FFD600; border: 2px solid #FFD600; color: #0c0c08;
-          font-family: 'IBM Plex Mono', monospace; font-size: 13px; font-weight: 700;
+          font-family: 'IBM Plex Mono', monospace; font-size: 13px; font-weight: 800;
           padding: 18px 48px; cursor: pointer; letter-spacing: 3px;
           text-transform: uppercase; transition: all 0.15s ease;
           box-shadow: 4px 4px 0px #b89e00;
         }
         .btn-primary:hover { background: #ffe533; border-color: #ffe533; transform: translateY(-2px); box-shadow: 4px 6px 0px #b89e00; }
-        .btn-primary:disabled { background: transparent; border-color: #2a2a1a; color: #444430; cursor: not-allowed; transform: none; box-shadow: none; }
+        .btn-primary:disabled { background: transparent; border-color: #666650; color: #aaa890; cursor: not-allowed; transform: none; box-shadow: none; }
 
         .btn-ghost {
-          background: transparent; border: 1px solid #3a3a28;
-          color: #888870; font-family: 'IBM Plex Mono', monospace;
+          background: transparent; border: 1px solid #666650;
+          color: #d8d8c0; font-family: 'IBM Plex Mono', monospace;
           font-size: 11px; padding: 13px 28px; cursor: pointer;
           letter-spacing: 2px; text-transform: uppercase; transition: all 0.15s ease;
         }
-        .btn-ghost:hover { border-color: #666650; color: #bbbb9a; }
+        .btn-ghost:hover { border-color: #aaa890; color: #eeeedd; }
 
         .btn-yes-party {
           background: linear-gradient(135deg, #FF6B6B, #FFD600, #6BFFB8, #6BB5FF);
@@ -549,10 +550,8 @@ export default function App() {
         .wiggle { animation: wiggle 0.5s ease infinite; }
         .spin-slow { animation: spin 4s linear infinite; }
 
-        input:focus { outline: none; }
-        input::placeholder { color: #3a3a28; }
-        .btn-primary { color: #0c0c08; }
-        .btn-primary:not(:disabled) { color: #000; font-weight: 800; }
+        input:focus { outline: 2px solid #FFD600; outline-offset: 0; }
+        input::placeholder { color: #888870; }
         .blink { animation: blink 1s step-end infinite; }
         @keyframes blink { 50% { opacity: 0; } }
         .pfill { transition: width 0.55s cubic-bezier(0.4,0,0.2,1); }
@@ -669,12 +668,12 @@ export default function App() {
             }[verdict];
             return <>
               {product && <div style={S.vProd}>{product.name}{product.price !== "Unknown" ? ` · ${product.price}` : ""}</div>}
-              <div style={S.eyebrow}>VERDICT:</div>
+              <div style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: "clamp(18px, 4vw, 26px)", letterSpacing: 6, color: cfg.color, marginBottom: 4 }}>VERDICT:</div>
               <div style={{ ...S.vResult, color: cfg.color }}>{cfg.heading}</div>
-              <div style={{ ...S.vSub, color: "#c8c8b0", fontSize: 13, letterSpacing: 2, marginBottom: 16, textTransform: "uppercase", fontFamily: "'Bebas Neue', sans-serif", fontSize: "clamp(18px, 4vw, 28px)" }}>{cfg.sub}</div>
+              <div style={{ ...S.vSub, color: "#c8c8b0", fontFamily: "'Bebas Neue', sans-serif", fontSize: "clamp(18px, 4vw, 28px)", letterSpacing: 2, marginBottom: 16 }}>{cfg.sub}</div>
               <div style={S.vDetail}>{cfg.detail}</div>
 
-              {/* Savings potential — raised card */}
+              {/* Savings potential */}
               <div style={{ ...S.savingsCard, borderLeftColor: cfg.color }}>
                 <div style={S.savingsLabel}>SAVINGS POTENTIAL</div>
                 <div style={{ display: "flex", alignItems: "baseline", gap: 8 }}>
@@ -683,16 +682,47 @@ export default function App() {
                 </div>
               </div>
 
-              {/* Quote — separated below savings */}
+              {/* Quote */}
               {quote && (
-                <div style={{ ...S.quoteBlock, borderLeftColor: "#2a2a18", marginTop: 0, marginBottom: 40 }}>
+                <div style={{ ...S.quoteBlock, borderLeftColor: "#666650", marginTop: 0, marginBottom: 40 }}>
                   <div style={{ ...S.quoteText, fontSize: 15, lineHeight: 1.7 }}>"{quote.text}"</div>
                   <div style={S.quoteAuthor}>— {quote.author}</div>
                 </div>
               )}
 
-              {/* Audit log */}
-              <div style={{ ...S.auditHeader, marginTop: 40, marginBottom: 0 }}>
+              {/* Buttons — now above audit log */}
+              <div style={{ ...S.verdictBtns, marginTop: 8, marginBottom: 48 }}>
+                <div style={{ display: "flex", gap: 10 }}>
+                  <button className="btn-ghost" onClick={reset} style={{ flex: 1, whiteSpace: "nowrap", fontSize: 10, padding: "16px 12px" }}>← ANOTHER PRODUCT</button>
+                  <button
+                    onClick={() => transition(() => setStage("quest"))}
+                    style={{ flex: 1, whiteSpace: "nowrap", fontSize: 10, padding: "16px 12px", background: cfg.color, border: "none", color: "#0c0c08", fontFamily: "'IBM Plex Mono', monospace", letterSpacing: 2, textTransform: "uppercase", cursor: "pointer", fontWeight: 700 }}
+                  >GO ON A QUEST →</button>
+                </div>
+                <div style={{ marginTop: 28, paddingTop: 24, borderTop: "1px solid #444430" }}>
+                  <button
+                    onClick={() => handleShare(verdict, product?.name, quote)}
+                    style={{ background: "none", border: "none", cursor: "pointer", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, letterSpacing: 1, color: copied === true ? "#6BFFB8" : "#aaa890", textDecoration: (copied === true || copied === "fallback") ? "none" : "underline", textUnderlineOffset: 3, padding: 0 }}
+                  >
+                    {copied === true ? "✓ copied to clipboard" : "share this result ↗"}
+                  </button>
+                  {!copied && <span style={{ fontSize: 10, color: "#888870", letterSpacing: 0.5, marginLeft: 8 }}>verdict + quote</span>}
+                  {copied === "fallback" && (
+                    <div style={{ marginTop: 12 }}>
+                      <textarea
+                        readOnly
+                        onFocus={e => e.target.select()}
+                        style={{ width: "100%", background: "#0e0e0a", border: "1px solid #555540", color: "#aaa890", fontFamily: "'IBM Plex Mono', monospace", fontSize: 10, padding: 12, lineHeight: 1.7, resize: "none", height: 140, letterSpacing: 0.5 }}
+                        value={shareText}
+                      />
+                      <div style={{ fontSize: 10, color: "#888870", marginTop: 4 }}>Select all and copy manually</div>
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              {/* Audit log — now below CTAs */}
+              <div style={{ ...S.auditHeader, marginBottom: 0 }}>
                 AUDIT LOG / RESPONSES
               </div>
               <div style={S.recap}>
@@ -703,42 +733,11 @@ export default function App() {
                       fontFamily: "'Bebas Neue', sans-serif",
                       fontSize: 20,
                       letterSpacing: 2,
-                      color: a.a === "yes" ? cfg.color : "#555540",
+                      color: a.a === "yes" ? cfg.color : "#666650",
                       flexShrink: 0,
                     }}>{a.a.toUpperCase()}</span>
                   </div>
                 ))}
-              </div>
-
-              {/* Buttons */}
-              <div style={{ ...S.verdictBtns, marginTop: 48 }}>
-                <div style={{ display: "flex", gap: 10 }}>
-                  <button className="btn-ghost" onClick={reset} style={{ flex: 1, whiteSpace: "nowrap", fontSize: 10, padding: "16px 12px" }}>← ANOTHER PRODUCT</button>
-                  <button
-                    onClick={() => transition(() => setStage("quest"))}
-                    style={{ flex: 1, whiteSpace: "nowrap", fontSize: 10, padding: "16px 12px", background: cfg.color, border: "none", color: "#0c0c08", fontFamily: "'IBM Plex Mono', monospace", letterSpacing: 2, textTransform: "uppercase", cursor: "pointer", fontWeight: 700 }}
-                  >GO ON A QUEST →</button>
-                </div>
-                <div style={{ marginTop: 28, paddingTop: 24, borderTop: "1px solid #1a1a10" }}>
-                  <button
-                    onClick={() => handleShare(verdict, product?.name, quote)}
-                    style={{ background: "none", border: "none", cursor: "pointer", fontFamily: "'IBM Plex Mono', monospace", fontSize: 11, letterSpacing: 1, color: copied === true ? "#6BFFB8" : "#999980", textDecoration: (copied === true || copied === "fallback") ? "none" : "underline", textUnderlineOffset: 3, padding: 0 }}
-                  >
-                    {copied === true ? "✓ copied to clipboard" : "share this result ↗"}
-                  </button>
-                  {!copied && <span style={{ fontSize: 10, color: "#666650", letterSpacing: 0.5, marginLeft: 8 }}>verdict + quote</span>}
-                  {copied === "fallback" && (
-                    <div style={{ marginTop: 12 }}>
-                      <textarea
-                        readOnly
-                        onFocus={e => e.target.select()}
-                        style={{ width: "100%", background: "#0e0e0a", border: "1px solid #2a2a18", color: "#999980", fontFamily: "'IBM Plex Mono', monospace", fontSize: 10, padding: 12, lineHeight: 1.7, resize: "none", height: 140, letterSpacing: 0.5 }}
-                        value={shareText}
-                      />
-                      <div style={{ fontSize: 10, color: "#666650", marginTop: 4 }}>Select all and copy manually</div>
-                    </div>
-                  )}
-                </div>
               </div>
             </>;
           })()}
@@ -827,7 +826,7 @@ export default function App() {
       <footer style={{ ...S.footer, ...(isYes ? S.footerYes : {}) }}>
         {isYes
           ? "🌈 THE UNIVERSE APPROVES · GO FORTH · BUY THE THING 🌈"
-          : <span>Do I Need It? by <a href="https://sebastianflamant.com" target="_blank" rel="noopener noreferrer" style={{ color: "#aaa890", textDecoration: "none", whiteSpace: "nowrap" }}>Sebastian&nbsp;Flamant</a> · Come back for updates.</span>
+          : <span>Do I Need It? by <a href="https://sebastianflamant.com" target="_blank" rel="noopener noreferrer" style={{ color: "#aaa890", textDecoration: "none", whiteSpace: "nowrap" }}>Sebastian&nbsp;Flamant</a> · <a href="https://www.flamant.dk" target="_blank" rel="noopener noreferrer" style={{ color: "#aaa890", textDecoration: "none" }}>flamant.dk</a> · <a href="mailto:sebastian@flamant.dk" style={{ color: "#aaa890", textDecoration: "none" }}>sebastian@flamant.dk</a></span>
         }
       </footer>
     </div>
@@ -835,58 +834,58 @@ export default function App() {
 }
 
 const S = {
-  root: { minHeight: "100vh", background: "#0c0c08", fontFamily: "'IBM Plex Mono', monospace", color: "#c8c8b0", display: "flex", flexDirection: "column", transition: "background 0.5s ease" },
+  root: { minHeight: "100vh", background: "#0c0c08", fontFamily: "'IBM Plex Mono', monospace", color: "#d8d8c0", display: "flex", flexDirection: "column", transition: "background 0.5s ease" },
   rootYes: { background: "linear-gradient(160deg, #fff8e1 0%, #fff0f5 40%, #e8f8ff 100%)" },
-  header: { borderBottom: "1px solid #2a2a18", padding: "22px 40px", display: "flex", alignItems: "baseline", gap: 18, transition: "all 0.5s" },
+  header: { borderBottom: "1px solid #555540", padding: "22px 40px", display: "flex", alignItems: "baseline", gap: 18, transition: "all 0.5s" },
   headerYes: { borderBottom: "2px solid #FFD600", background: "rgba(255,255,255,0.6)", backdropFilter: "blur(8px)" },
   logo: { fontFamily: "'Bebas Neue', sans-serif", fontSize: 26, letterSpacing: 5, color: "#FFD600", transition: "all 0.5s" },
   logoYes: { fontFamily: "'Pacifico', cursive", fontSize: 22, letterSpacing: 1, color: "#FF6B6B" },
-  logoSub: { fontSize: 10, letterSpacing: 3, color: "#666650", textTransform: "uppercase", transition: "all 0.5s" },
+  logoSub: { fontSize: 10, letterSpacing: 3, color: "#aaa890", textTransform: "uppercase", transition: "all 0.5s" },
   logoSubYes: { color: "#FF6B6B", fontFamily: "'Pacifico', cursive", fontSize: 11, letterSpacing: 0, textTransform: "none" },
-  pTrack: { height: 3, background: "#1e1e12" },
+  pTrack: { height: 3, background: "#444430" },
   pFill: { height: "100%", background: "#FFD600" },
   wrap: { flex: 1, display: "flex", alignItems: "center", justifyContent: "center", padding: "52px 24px" },
   card: { maxWidth: 560, width: "100%" },
-  eyebrow: { fontSize: 10, letterSpacing: 4, color: "#888870", textTransform: "uppercase", marginBottom: 20 },
-  h1: { fontFamily: "'Bebas Neue', sans-serif", fontSize: "clamp(42px, 7vw, 66px)", lineHeight: 1.05, letterSpacing: 2, color: "#e0e0c8", marginBottom: 20 },
+  eyebrow: { fontSize: 10, letterSpacing: 4, color: "#aaa890", textTransform: "uppercase", marginBottom: 20 },
+  h1: { fontFamily: "'Bebas Neue', sans-serif", fontSize: "clamp(42px, 7vw, 66px)", lineHeight: 1.05, letterSpacing: 2, color: "#eeeedd", marginBottom: 20 },
   yellow: { color: "#FFD600" },
-  body: { fontSize: 13, lineHeight: 1.95, color: "#999980", marginBottom: 36, maxWidth: 420 },
+  body: { fontSize: 13, lineHeight: 1.95, color: "#c8c8b0", marginBottom: 36, maxWidth: 420 },
   inputStack: { display: "flex", flexDirection: "column" },
-  input: { background: "#141410", border: "1px solid #2e2e1c", borderBottom: "none", color: "#c8c8b0", fontFamily: "'IBM Plex Mono', monospace", fontSize: 12, padding: "16px 20px", width: "100%", letterSpacing: 1 },
-  fine: { marginTop: 16, fontSize: 11, letterSpacing: 1, color: "#777760", lineHeight: 1.9 },
-  loadH: { fontFamily: "'Bebas Neue', sans-serif", fontSize: 38, color: "#c8c8b0", marginBottom: 14, letterSpacing: 2 },
-  loadUrl: { fontSize: 10, color: "#666650", letterSpacing: 1, wordBreak: "break-all" },
-  confirmIntro: { fontSize: 14, color: "#999980", marginBottom: 20, letterSpacing: 1 },
+  input: { background: "#1a1a14", border: "1px solid #666650", borderBottom: "none", color: "#d8d8c0", fontFamily: "'IBM Plex Mono', monospace", fontSize: 12, padding: "16px 20px", width: "100%", letterSpacing: 1 },
+  fine: { marginTop: 16, fontSize: 11, letterSpacing: 1, color: "#aaa890", lineHeight: 1.9 },
+  loadH: { fontFamily: "'Bebas Neue', sans-serif", fontSize: 38, color: "#d8d8c0", marginBottom: 14, letterSpacing: 2 },
+  loadUrl: { fontSize: 10, color: "#aaa890", letterSpacing: 1, wordBreak: "break-all" },
+  confirmIntro: { fontSize: 14, color: "#c8c8b0", marginBottom: 20, letterSpacing: 1 },
   confirmBox: { background: "#111108", border: "2px solid #FFD600", padding: "24px 28px", marginBottom: 28 },
-  confirmName: { fontFamily: "'Bebas Neue', sans-serif", fontSize: "clamp(36px, 6vw, 54px)", color: "#e0e0c8", letterSpacing: 2, lineHeight: 1, marginBottom: 14 },
+  confirmName: { fontFamily: "'Bebas Neue', sans-serif", fontSize: "clamp(36px, 6vw, 54px)", color: "#eeeedd", letterSpacing: 2, lineHeight: 1, marginBottom: 14 },
   confirmRow: { display: "flex", alignItems: "center", gap: 16, marginBottom: 10 },
   cat: { fontSize: 9, letterSpacing: 3, color: "#FFD600", textTransform: "uppercase", background: "rgba(255,214,0,0.1)", padding: "4px 10px" },
-  price: { fontSize: 16, color: "#e0e0c8", fontWeight: 700, letterSpacing: 1 },
-  note: { fontSize: 12, color: "#999980", fontStyle: "italic", letterSpacing: 0.5, lineHeight: 1.7 },
+  price: { fontSize: 16, color: "#eeeedd", fontWeight: 700, letterSpacing: 1 },
+  note: { fontSize: 12, color: "#c8c8b0", fontStyle: "italic", letterSpacing: 0.5, lineHeight: 1.7 },
   confirmBtns: { display: "flex", flexDirection: "column", gap: 12, alignItems: "flex-start" },
   dots: { display: "flex", gap: 8, marginBottom: 28 },
-  qText: { fontFamily: "'Bebas Neue', sans-serif", fontSize: "clamp(30px, 5.5vw, 50px)", lineHeight: 1.1, letterSpacing: 1, color: "#e0e0c8", marginBottom: 10 },
-  qSub: { fontSize: 12, color: "#888870", letterSpacing: 0.5, lineHeight: 1.8, marginBottom: 36, fontStyle: "italic" },
+  qText: { fontFamily: "'Bebas Neue', sans-serif", fontSize: "clamp(30px, 5.5vw, 50px)", lineHeight: 1.1, letterSpacing: 1, color: "#eeeedd", marginBottom: 10 },
+  qSub: { fontSize: 12, color: "#aaa890", letterSpacing: 0.5, lineHeight: 1.8, marginBottom: 36, fontStyle: "italic" },
   ynRow: { display: "flex", gap: 12 },
-  quoteBlock: { borderLeft: "2px solid #FFD600", paddingLeft: 16, marginBottom: 28, marginTop: 4 },
-  quoteText: { fontSize: 13, color: "#c8c8b0", lineHeight: 1.8, fontStyle: "italic", marginBottom: 8 },
-  quoteAuthor: { fontSize: 10, letterSpacing: 3, color: "#666650", textTransform: "uppercase" },
-  vProd: { fontSize: 10, letterSpacing: 3, color: "#777760", textTransform: "uppercase", marginBottom: 20 },
+  quoteBlock: { borderLeft: "2px solid #666650", paddingLeft: 16, marginBottom: 28, marginTop: 4 },
+  quoteText: { fontSize: 13, color: "#d8d8c0", lineHeight: 1.8, fontStyle: "italic", marginBottom: 8 },
+  quoteAuthor: { fontSize: 10, letterSpacing: 3, color: "#aaa890", textTransform: "uppercase" },
+  vProd: { fontSize: 10, letterSpacing: 3, color: "#aaa890", textTransform: "uppercase", marginBottom: 20 },
   vResult: { fontFamily: "'Bebas Neue', sans-serif", fontSize: "clamp(72px, 18vw, 130px)", letterSpacing: 4, lineHeight: 0.95, marginBottom: 12 },
-  vSub: { fontSize: 11, letterSpacing: 4, color: "#888870", textTransform: "uppercase", marginBottom: 20 },
-  vDetail: { fontSize: 13, lineHeight: 2, color: "#999980", maxWidth: 400, marginBottom: 28 },
+  vSub: { fontSize: 11, letterSpacing: 4, color: "#aaa890", textTransform: "uppercase", marginBottom: 20 },
+  vDetail: { fontSize: 13, lineHeight: 2, color: "#c8c8b0", maxWidth: 400, marginBottom: 28 },
   savingsCard: { background: "#0e0e0a", borderLeft: "4px solid", padding: "20px 24px", marginBottom: 28, marginTop: 4 },
-  savingsLabel: { fontSize: 9, letterSpacing: 4, color: "#888870", textTransform: "uppercase", marginBottom: 8 },
+  savingsLabel: { fontSize: 9, letterSpacing: 4, color: "#aaa890", textTransform: "uppercase", marginBottom: 8 },
   savingsValue: { fontFamily: "'Bebas Neue', sans-serif", fontSize: 64, letterSpacing: 3, lineHeight: 1 },
-  auditHeader: { fontSize: 9, letterSpacing: 4, color: "#888870", textTransform: "uppercase", paddingBottom: 12, borderBottom: "1px solid #2a2a18", marginBottom: 0 },
+  auditHeader: { fontSize: 9, letterSpacing: 4, color: "#aaa890", textTransform: "uppercase", paddingBottom: 12, borderBottom: "1px solid #555540", marginBottom: 0 },
   verdictBtns: { display: "flex", flexDirection: "column", gap: 10, marginTop: 32 },
-  divider: { height: 1, background: "#222214", marginBottom: 24 },
+  divider: { height: 1, background: "#555540", marginBottom: 24 },
   recap: { display: "flex", flexDirection: "column" },
-  recapRow: { display: "flex", justifyContent: "space-between", alignItems: "center", gap: 20, padding: "16px 0", borderBottom: "1px solid #1a1a10" },
-  recapQ: { fontSize: 12, color: "#c8c8b0", flex: 1, letterSpacing: 0.3, lineHeight: 1.5 },
+  recapRow: { display: "flex", justifyContent: "space-between", alignItems: "center", gap: 20, padding: "16px 0", borderBottom: "1px solid #444430" },
+  recapQ: { fontSize: 12, color: "#d8d8c0", flex: 1, letterSpacing: 0.3, lineHeight: 1.5 },
   recapA: { fontSize: 11, letterSpacing: 2, fontWeight: 700, flexShrink: 0 },
-  footer: { padding: "18px 40px", borderTop: "1px solid #1c1c10", textAlign: "center", fontSize: 9, letterSpacing: 4, color: "#555540", textTransform: "uppercase" },
+  footer: { padding: "18px 40px", borderTop: "1px solid #555540", textAlign: "center", fontSize: 9, letterSpacing: 4, color: "#aaa890", textTransform: "uppercase" },
   footerYes: { borderTop: "2px dashed #FFD600", background: "rgba(255,255,255,0.4)", color: "#FF6B6B", fontFamily: "'Pacifico', cursive", fontSize: 11, letterSpacing: 1, textTransform: "none" },
-  streakBadge: { fontSize: 10, letterSpacing: 2, color: "#666650", textTransform: "uppercase", cursor: "pointer", whiteSpace: "nowrap", padding: "4px 8px", border: "1px solid #2a2a18", transition: "all 0.15s" },
-  streakHome: { marginTop: 24, fontSize: 12, color: "#777760", lineHeight: 1.8, letterSpacing: 0.5 },
+  streakBadge: { fontSize: 10, letterSpacing: 2, color: "#aaa890", textTransform: "uppercase", cursor: "pointer", whiteSpace: "nowrap", padding: "4px 8px", border: "1px solid #666650", transition: "all 0.15s" },
+  streakHome: { marginTop: 24, fontSize: 12, color: "#aaa890", lineHeight: 1.8, letterSpacing: 0.5 },
 };
